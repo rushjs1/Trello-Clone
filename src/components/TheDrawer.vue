@@ -1,13 +1,12 @@
 <script setup lang="ts">
-
 import { Drawer, DrawerContent } from "@progress/kendo-vue-layout";
 
 import { useRouter } from "vue-router";
 
 import { computed, ref } from "vue";
 
-// const router = useRouter(); 
-const selectedId = ref(0);
+const router = useRouter();
+//const selectedId = ref(0);
 
 const expanded = ref(false);
 const expandedIcon = computed(() =>
@@ -19,7 +18,7 @@ const items = computed(() => [
     icon: "k-i-set-column-position",
     selected: true,
     data: {
-      path: "/",
+      path: "/boards",
     },
   },
   {
@@ -50,16 +49,22 @@ function onSelect({ itemIndex }: { itemIndex: number }) {
   if (item.data.path) router.push(item.data.path);
   if (typeof item.data.action === "function") item.data.action();
 }
-
 </script>
 
 <template>
-    <Drawer class="h-[90vh]" :expanded="expanded" position="start" mode="push" :mini="true" :items="items"
-        @select="onSelect">
-        <DrawerContent>
-            <div class="px-5">
-                <router-view />
-            </div>
-        </DrawerContent>
-    </Drawer>
+  <Drawer
+    class="h-[90vh]"
+    :expanded="expanded"
+    position="start"
+    mode="push"
+    :mini="true"
+    :items="items"
+    @select="onSelect"
+  >
+    <DrawerContent>
+      <div class="px-5">
+        <router-view />
+      </div>
+    </DrawerContent>
+  </Drawer>
 </template>
